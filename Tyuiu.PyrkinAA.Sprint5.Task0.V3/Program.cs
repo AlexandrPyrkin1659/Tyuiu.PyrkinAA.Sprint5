@@ -7,7 +7,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task0.V3
     {
         static void Main(string[] args)
         {
-    
+
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
@@ -22,7 +22,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task0.V3
             DataService ds = new DataService();
             string path = ds.SaveToFileTextData(x);
 
-          
+
             string result = System.IO.File.ReadAllText(path);
 
             Console.WriteLine($"Файл: {path}");

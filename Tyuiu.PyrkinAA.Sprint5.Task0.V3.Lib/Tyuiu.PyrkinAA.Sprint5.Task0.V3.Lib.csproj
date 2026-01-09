@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Reference Include="tyuiu.cources.programming.interfaces">
-      <HintPath>..\..\..\Новая папка (7)\Tyuiu.PyrkinAA.Sprint4\tyuiu.cources.programming.interfaces.dll</HintPath>
+      <HintPath>..\tyuiu.cources.programming.interfaces (2).dll</HintPath>
     </Reference>
   </ItemGroup>
 
