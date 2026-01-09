@@ -10,17 +10,18 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task0.V3.Lib
         {
 
             double y = -1.0 / 4.0 * (Math.Pow(x, 3) - 3 * Math.Pow(x, 2) + 4);
-
-
             y = Math.Round(y, 3);
 
+      
+            string path = "OutPutFileTask0.txt";
 
-            string path = $@"{Directory.GetCurrentDirectory()}\OutPutFileTaskO.txt";
 
+            using (StreamWriter writer = new StreamWriter(path, false))
+            {
+                writer.Write(y.ToString());
+            }
 
-            File.WriteAllText(path, y.ToString());
-
-            return path;
+            return Path.GetFullPath(path);
         }
     }
 }

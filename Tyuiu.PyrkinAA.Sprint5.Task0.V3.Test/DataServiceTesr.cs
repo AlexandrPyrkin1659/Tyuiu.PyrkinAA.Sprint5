@@ -10,21 +10,28 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task0.V3.Test
         [TestMethod]
         public void ValidSaveToFileTextData()
         {
-
+      
             DataService ds = new DataService();
             int x = 3;
 
-
+      
             string path = ds.SaveToFileTextData(x);
 
+         
+            Assert.IsTrue(File.Exists(path), $"Файл не создан: {path}");
 
-            bool fileExists = File.Exists(path);
-            Assert.IsTrue(fileExists);
-
-
-            string expected = "-1";
+           
             string actual = File.ReadAllText(path);
-            Assert.AreEqual(expected, actual);
+         
+            string expected = "-1";
+
+            Assert.AreEqual(expected, actual, $"Ожидалось: {expected}, получено: {actual}");
+
+      
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
     }
 }
