@@ -8,18 +8,19 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task0.V3.Lib
     {
         public string SaveToFileTextData(int x)
         {
-          
+       
             double y = -1.0 / 4.0 * (Math.Pow(x, 3) - 3 * Math.Pow(x, 2) + 4);
             y = Math.Round(y, 3);
 
            
-            string path = "OutPutFileTask0.txt"; 
+            string fileName = "OutPutFileTask0.txt";
 
-         
+            string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string path = Path.Combine(userFolder, fileName);
 
             File.WriteAllText(path, y.ToString());
 
-            return Path.GetFullPath(path); 
+            return path;
         }
     }
 }
