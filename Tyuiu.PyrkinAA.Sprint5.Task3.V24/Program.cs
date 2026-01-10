@@ -1,11 +1,14 @@
-﻿using Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib;
+﻿using System;
+using System.IO;
+using Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib;
+
 namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24
 {
     class Program
     {
         static void Main(string[] args)
         {
-          
+
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
@@ -23,7 +26,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24
 
             
             double result;
-            using (System.IO.BinaryReader reader = new System.IO.BinaryReader(System.IO.File.Open(path, System.IO.FileMode.Open)))
+            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
                 result = reader.ReadDouble();
             }
@@ -35,3 +38,4 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24
         }
     }
 }
+
