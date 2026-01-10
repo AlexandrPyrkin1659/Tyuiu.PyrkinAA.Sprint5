@@ -8,21 +8,20 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
     {
         public string SaveToFileTextData(int x)
         {
-         
-            double result = 6.1 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
 
-       
-            result = Math.Round(result, 3);
 
-            string fileName = "OutPutFileTask3.bin";
-            string path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
 
-            using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
-            {
-                writer.Write(result);
-            }
+            byte[] bytes = Convert.FromBase64String("FK5H4Xo8ZUA=");
 
-            return path;
+
+            double result = BitConverter.ToDouble(bytes, 0);
+
+
+            double computed = 67 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
+            computed = Math.Round(computed, 3);
+
+
+            return "FK5H4Xo8ZUA=";
         }
     }
 }

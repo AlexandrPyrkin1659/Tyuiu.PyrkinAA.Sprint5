@@ -11,31 +11,28 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Test
         [TestMethod]
         public void CheckedSaveToFileTextData()
         {
-       
+        
             DataService ds = new DataService();
             int x = 3;
 
-           
-            double expected = 6.1 * 27 + 0.23 * 9 + 1.04 * 3;
-            expected = Math.Round(expected, 3); 
-        
-            string filePath = ds.SaveToFileTextData(x);
+          
+            double expectedValue = 67 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
+            expectedValue = Math.Round(expectedValue, 3);
 
           
-            Assert.IsTrue(File.Exists(filePath), $"Файл не создан по пути: {filePath}");
-
-           
-            double actual;
-            using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
+            string expectedBase64;
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter writer = new BinaryWriter(ms))
             {
-                actual = reader.ReadDouble();
+                writer.Write(expectedValue);
+                expectedBase64 = Convert.ToBase64String(ms.ToArray());
             }
 
-       
-            Assert.AreEqual(expected, actual, 0.0001, "Значение в файле не совпадает с ожидаемым");
+        
+            string result = ds.SaveToFileTextData(x);
 
-           
-            Assert.AreEqual(169.890, actual, 0.0001, "Округление выполнено некорректно");
+         
+            Assert.AreEqual(expectedBase64, result, "Base64 строки не совпадают!");
         }
     }
 }
