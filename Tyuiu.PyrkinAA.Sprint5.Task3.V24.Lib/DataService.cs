@@ -8,12 +8,13 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
     {
         public string SaveToFileTextData(int x)
         {
-         
+          
             double result = 67 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
 
        
             result = Math.Round(result, 3);
 
+     
             byte[] bytes;
             using (MemoryStream memoryStream = new MemoryStream())
             using (BinaryWriter writer = new BinaryWriter(memoryStream))
@@ -22,11 +23,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
                 bytes = memoryStream.ToArray();
             }
 
-          
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "OutPutFileTask3.bin");
-            File.WriteAllBytes(path, bytes);
-
-          
+           
             return Convert.ToBase64String(bytes);
         }
     }
