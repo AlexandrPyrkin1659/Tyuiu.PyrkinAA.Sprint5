@@ -4,24 +4,17 @@ using tyuiu.cources.programming.interfaces.Sprint5;
 
 namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
 {
-    public class DataService : ISprint5Task3V24
+    public class DataService : ISprint5Task3V21
     {
         public string SaveToFileTextData(int x)
         {
-
-
-
-            byte[] bytes = Convert.FromBase64String("FK5H4Xo8ZUA=");
-
-
-            double result = BitConverter.ToDouble(bytes, 0);
-
-
-            double computed = 67 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
-            computed = Math.Round(computed, 3);
-
-
-            return "FK5H4Xo8ZUA=";
+            string path = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
+            double result = 6.1 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
+            using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Append)))
+            {
+                writer.Write(Math.Round(result, 3));
+            }
+            return path;
         }
     }
 }
