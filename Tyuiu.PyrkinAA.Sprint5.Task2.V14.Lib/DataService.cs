@@ -6,21 +6,20 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task2.V14.Lib
     {
         public string SaveToFileTextData(int[,] matrix)
         {
-            
-            string path = $@"{Directory.GetCurrentDirectory()}\OutPutFileTask2.csv";
+         
+            string fileName = "OutPutFileTask2.csv";
 
-           
-            if (File.Exists(path))
+            if (File.Exists(fileName))
             {
-                File.Delete(path);
+                File.Delete(fileName);
             }
 
            
             int rows = matrix.GetLength(0);
             int cols = matrix.GetLength(1);
 
-            
-            using (StreamWriter writer = new StreamWriter(path))
+
+            using (StreamWriter writer = new StreamWriter(fileName))
             {
                 for (int i = 0; i < rows; i++)
                 {
@@ -28,11 +27,11 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task2.V14.Lib
 
                     for (int j = 0; j < cols; j++)
                     {
-                       
+                    
                         int value = matrix[i, j] > 0 ? 1 : 0;
                         line += value;
 
-                     
+                      
                         if (j < cols - 1)
                         {
                             line += ";";
@@ -43,7 +42,8 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task2.V14.Lib
                 }
             }
 
-            return path;
+
+            return Path.GetFullPath(fileName);
         }
     }
 }
