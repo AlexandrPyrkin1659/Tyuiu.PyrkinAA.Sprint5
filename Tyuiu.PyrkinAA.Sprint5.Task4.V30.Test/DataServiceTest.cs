@@ -14,18 +14,14 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task4.V30.Test
             // Arrange
             DataService ds = new DataService();
 
-            // Создаем временный файл с тестовыми данными
+            // Создаем временный файл
             string tempFile = Path.GetTempFileName();
 
-            // Записываем тестовое значение в файл (например, 1.5)
-            File.WriteAllText(tempFile, "1.5");
+            // Записываем тестовое значение (например, 2.5)
+            File.WriteAllText(tempFile, "2.5");
 
-            // Ожидаемое значение для x = 1.5:
-            // x³ = 1.5³ = 3.375
-            // tg(1.5) ≈ 14.1014
-            // (3.375 - 14.1014) + 2.03*1.5 = (-10.7264) + 3.045 = -7.6814
-            // Округление до 3 знаков: -7.681
-            double expected = -7.681;
+            // Ожидаемое значение для x = 2.5
+            double expected = 21.447; // (15.625 - (-0.747022)) + 5.075 = 21.447
 
             try
             {
@@ -33,32 +29,26 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task4.V30.Test
                 double actual = ds.LoadFromDataFile(tempFile);
 
                 // Assert
-                Assert.AreEqual(expected, actual, 0.001, "Значения не совпадают!");
+                Assert.AreEqual(expected, actual, 0.001, "Результат вычислений неверный!");
             }
             finally
             {
-                // Удаляем временный файл
+                // Очистка
                 if (File.Exists(tempFile))
                     File.Delete(tempFile);
             }
         }
 
         [TestMethod]
-        public void ValidLoadFromDataFile_WithDifferentValue()
+        public void ValidLoadFromDataFile_WithSpaces()
         {
             // Arrange
             DataService ds = new DataService();
 
-            // Создаем временный файл с другим значением
             string tempFile = Path.GetTempFileName();
-            File.WriteAllText(tempFile, "2.0");
+            File.WriteAllText(tempFile, "  1.5  "); // Число с пробелами
 
-            // Ожидаемое значение для x = 2.0:
-            // x³ = 8
-            // tg(2.0) ≈ -2.1850
-            // (8 - (-2.1850)) + 2.03*2 = (8 + 2.1850) + 4.06 = 10.185 + 4.06 = 14.245
-            // Округление до 3 знаков: 14.245
-            double expected = 14.245;
+            double expected = -7.681; // Для x = 1.5
 
             try
             {
@@ -66,7 +56,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task4.V30.Test
                 double actual = ds.LoadFromDataFile(tempFile);
 
                 // Assert
-                Assert.AreEqual(expected, actual, 0.001, "Значения не совпадают!");
+                Assert.AreEqual(expected, actual, 0.001, "Не удалось обработать число с пробелами!");
             }
             finally
             {
@@ -81,22 +71,43 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task4.V30.Test
         {
             // Arrange
             DataService ds = new DataService();
-            string nonExistentFile = @"C:\NonExistentFolder\NonExistentFile.txt";
+            string fakePath = @"C:\FakeFolder\FakeFile.txt";
 
             // Act & Assert
-            ds.LoadFromDataFile(nonExistentFile);
+            ds.LoadFromDataFile(fakePath);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void InvalidLoadFromDataFile_InvalidFormat()
+        public void InvalidLoadFromDataFile_InvalidContent()
         {
             // Arrange
             DataService ds = new DataService();
 
-            // Создаем временный файл с некорректными данными
             string tempFile = Path.GetTempFileName();
-            File.WriteAllText(tempFile, "не число");
+            File.WriteAllText(tempFile, "abc123"); // Не число
+
+            try
+            {
+                // Act & Assert
+                ds.LoadFromDataFile(tempFile);
+            }
+            finally
+            {
+                if (File.Exists(tempFile))
+                    File.Delete(tempFile);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void InvalidLoadFromDataFile_EmptyFile()
+        {
+            // Arrange
+            DataService ds = new DataService();
+
+            string tempFile = Path.GetTempFileName();
+            File.WriteAllText(tempFile, ""); // Пустой файл
 
             try
             {
