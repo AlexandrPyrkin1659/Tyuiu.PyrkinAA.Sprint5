@@ -25,10 +25,10 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task4.V30
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
 
-            // Путь к файлу из параметров тестирования
+          
             string path = "/app/data/AssesmentData/C#/Sprint5Task4/InPutDataFileTask4V30.txt";
 
-            // Альтернативный путь для локального тестирования
+            
             string localPath = @"C:\DataSprint5\InPutDataFileTask4V30.txt";
 
             Console.WriteLine($"Основной путь к файлу: {path}");
@@ -43,7 +43,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task4.V30
 
             try
             {
-                // Пробуем сначала основной путь
+                
                 double result;
                 if (File.Exists(path))
                 {
@@ -63,21 +63,21 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task4.V30
                     return;
                 }
 
-                // Выводим результат
+                
                 Console.WriteLine($"Результат вычислений: {result:F3}");
 
-                // Дополнительная информация
+
                 Console.WriteLine();
                 Console.WriteLine("***************************************************************************");
                 Console.WriteLine("* ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ:                                              *");
                 Console.WriteLine("***************************************************************************");
 
-                // Читаем содержимое файла для отображения
+              
                 string usedPath = File.Exists(path) ? path : localPath;
                 string fileContent = File.ReadAllText(usedPath);
                 Console.WriteLine($"Содержимое файла: '{fileContent}'");
 
-                // Проверяем, что считали
+                
                 double x = double.Parse(fileContent.Trim());
                 Console.WriteLine($"Значение x: {x}");
                 Console.WriteLine($"x³ = {Math.Pow(x, 3):F3}");
