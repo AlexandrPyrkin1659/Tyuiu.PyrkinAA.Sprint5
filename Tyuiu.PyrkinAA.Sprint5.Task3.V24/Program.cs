@@ -8,7 +8,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24
     {
         static void Main(string[] args)
         {
-
+         
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
@@ -22,20 +22,21 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24
             Console.WriteLine("***************************************************************************");
 
             DataService ds = new DataService();
-            string path = ds.SaveToFileTextData(x);
+            string base64Result = ds.SaveToFileTextData(x);
 
-            
+         
+            byte[] bytes = Convert.FromBase64String(base64Result);
             double result;
-            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            using (MemoryStream ms = new MemoryStream(bytes))
+            using (BinaryReader reader = new BinaryReader(ms))
             {
                 result = reader.ReadDouble();
             }
 
-            Console.WriteLine("Файл: " + path);
             Console.WriteLine("Результат: " + result.ToString("F3"));
+            Console.WriteLine("Base64: " + base64Result);
 
             Console.ReadKey();
         }
     }
 }
-
