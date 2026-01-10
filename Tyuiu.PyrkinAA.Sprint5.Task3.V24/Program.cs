@@ -8,7 +8,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24
     {
         static void Main(string[] args)
         {
-         
+
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
@@ -24,7 +24,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24
             DataService ds = new DataService();
             string base64Result = ds.SaveToFileTextData(x);
 
-         
+
             byte[] bytes = Convert.FromBase64String(base64Result);
             double result;
             using (MemoryStream ms = new MemoryStream(bytes))
