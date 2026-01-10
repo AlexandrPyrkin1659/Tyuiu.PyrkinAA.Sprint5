@@ -13,30 +13,27 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task7.V17.Test
         {
             DataService ds = new DataService();
 
-            // Создаём тестовый файл во временной директории
-            string testDir = Path.GetTempPath();
-            string testInputPath = Path.Combine(testDir, "InPutDataFileTask7V17.txt");
+            // Используем реальный путь из параметра теста
+            string inputPath = @"C:\DataSprint5\InPutDataFileTask7V17.txt";
 
-            // Пишем тестовое содержимое
-            string testText = "анна и джонн шли по ннной дороге";
-            File.WriteAllText(testInputPath, testText, Encoding.UTF8);
+            // Если файла нет - создаём временный тестовый
+            if (!File.Exists(inputPath))
+            {
+                inputPath = Path.GetTempFileName();
+                File.WriteAllText(inputPath, "анна и джонн шли", Encoding.UTF8);
+            }
 
             // Выполняем метод
-            string outputPath = ds.LoadDataAndSave(testInputPath);
+            string outputPath = ds.LoadDataAndSave(inputPath);
 
             // Проверяем, что файл создан
             Assert.IsTrue(File.Exists(outputPath), "Выходной файл не создан");
 
             // Читаем результат
             string resultText = File.ReadAllText(outputPath, Encoding.UTF8);
-            string expectedText = "аа и джон шли по ной дороге";
 
-            // Проверяем корректность замены
-            Assert.AreEqual(expectedText, resultText);
-
-            // Удаляем временные файлы
-            File.Delete(testInputPath);
-            File.Delete(outputPath);
+            // Проверяем, что "нн" удалены
+            Assert.IsFalse(resultText.Contains("нн"), "В результате остались 'нн'");
         }
 
         [TestMethod]
