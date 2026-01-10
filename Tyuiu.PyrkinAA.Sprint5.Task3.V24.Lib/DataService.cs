@@ -11,9 +11,10 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
             double result = 67 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
             result = Math.Round(result, 3);
 
-           
+         
+            string tempPath = Path.GetTempPath();
             string fileName = "OutPutFileTask3.bin";
-            string path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            string path = Path.Combine(tempPath, fileName);
 
             using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
@@ -23,4 +24,5 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
             return path;
         }
     }
+    
 }
