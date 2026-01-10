@@ -5,24 +5,34 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task1.V24.Lib
     {
         public string SaveToFileTextData(int startValue, int stopValue)
         {
-         
-            string outputDir = Path.Combine(Directory.GetCurrentDirectory(), "Output");
+            
+            string currentDir = Directory.GetCurrentDirectory();
+            string outputDir = Path.Combine(currentDir, "Output");
 
+          
             if (!Directory.Exists(outputDir))
             {
                 Directory.CreateDirectory(outputDir);
             }
 
-          
+            
             string path = Path.Combine(outputDir, "OutPutFileTask1.txt");
 
-            using (StreamWriter writer = new StreamWriter(path, false))
+            
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            
+            using (StreamWriter writer = new StreamWriter(path))
             {
                 for (int x = startValue; x <= stopValue; x++)
                 {
                     double denominator = 4 * x - 0.5;
                     double result;
 
+                    
                     if (Math.Abs(denominator) < 1e-10)
                     {
                         result = 0;
@@ -35,7 +45,10 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task1.V24.Lib
                                  - 2;
                     }
 
+                    
                     result = Math.Round(result, 2);
+
+                    
                     writer.WriteLine(result);
                 }
             }

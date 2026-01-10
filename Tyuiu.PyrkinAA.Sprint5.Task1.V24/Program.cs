@@ -5,45 +5,56 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task1.V24
     {
         static void Main(string[] args)
         {
-            DataService ds = new DataService();
+            Console.Title = "Табулирование функции";
+            Console.WriteLine("***************************************************************************");
+            Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
+            Console.WriteLine("***************************************************************************");
 
             int startValue = -5;
             int stopValue = 5;
 
-            Console.WriteLine("***************************************************************************");
-            Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
-            Console.WriteLine("***************************************************************************");
-            Console.WriteLine($"startValue = {startValue}");
-            Console.WriteLine($"stopValue = {stopValue}");
+            Console.WriteLine($"Начало диапазона: {startValue}");
+            Console.WriteLine($"Конец диапазона:  {stopValue}");
+            Console.WriteLine($"Шаг: 1");
+            Console.WriteLine();
+            Console.WriteLine("Функция: F(x) = (3*cos(x))/(4*x-0.5) + sin(x) - 5*x - 2");
             Console.WriteLine();
 
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* РЕЗУЛЬТАТ:                                                              *");
             Console.WriteLine("***************************************************************************");
 
-            string path = ds.SaveToFileTextData(startValue, stopValue);
-
-            Console.WriteLine("Файл: " + path);
-            Console.WriteLine("Создан!");
-
-            Console.WriteLine();
-            Console.WriteLine("Таблица значений функции F(x) = (3*cos(x))/(4*x-0.5) + sin(x) - 5*x - 2:");
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine("|    x    |    f(x)    |");
-            Console.WriteLine("-----------------------------");
+            
+            DataService ds = new DataService();
 
             
-            string[] lines = File.ReadAllLines(path);
+            string path = ds.SaveToFileTextData(startValue, stopValue);
+
+            Console.WriteLine($"Файл создан: {path}");
+            Console.WriteLine();
+
+            
+            Console.WriteLine("Таблица значений функции:");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("|    x    |     F(x)     |");
+            Console.WriteLine("------------------------------");
+
+            string[] results = File.ReadAllLines(path);
             int x = startValue;
 
-            foreach (string line in lines)
+            foreach (string line in results)
             {
                 double y = double.Parse(line);
-                Console.WriteLine($"| {x,6}  | {y,10:F2} |");
+                Console.WriteLine($"| {x,6}  | {y,12:F2} |");
                 x++;
             }
 
-            Console.WriteLine("-----------------------------");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine();
+
+            
+            Console.WriteLine($"Результаты сохранены в файл:");
+            Console.WriteLine($"{Path.GetFullPath(path)}");
 
             Console.ReadKey();
         }
