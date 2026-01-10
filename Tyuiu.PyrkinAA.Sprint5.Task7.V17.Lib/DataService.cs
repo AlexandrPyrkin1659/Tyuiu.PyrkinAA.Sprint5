@@ -8,14 +8,16 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task7.V17.Lib
     {
         public string LoadDataAndSave(string path)
         {
-            string outputPath = @"C:\DataSprint5\OutPutDataFileTask7V17.txt";
+            // Создаём путь для выходного файла рядом с входным
+            string outputPath = Path.Combine(Path.GetDirectoryName(path), "OutPutDataFileTask7V17.txt");
 
+            // Читаем исходный файл
             string text = File.ReadAllText(path, Encoding.UTF8);
 
-            
+            // Удаляем все вхождения "нн"
             string resultText = text.Replace("нн", "");
 
-         
+            // Сохраняем результат
             File.WriteAllText(outputPath, resultText, Encoding.UTF8);
 
             return outputPath;
