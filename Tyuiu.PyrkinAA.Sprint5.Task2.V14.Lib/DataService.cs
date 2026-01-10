@@ -6,44 +6,25 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task2.V14.Lib
     {
         public string SaveToFileTextData(int[,] matrix)
         {
-         
-            string fileName = "OutPutFileTask2.csv";
+            string path = "result.csv"; 
 
-            if (File.Exists(fileName))
+            using (StreamWriter writer = new StreamWriter(path, false))
             {
-                File.Delete(fileName);
-            }
+                int rows = matrix.GetLength(0);
+                int cols = matrix.GetLength(1);
 
-           
-            int rows = matrix.GetLength(0);
-            int cols = matrix.GetLength(1);
-
-
-            using (StreamWriter writer = new StreamWriter(fileName))
-            {
                 for (int i = 0; i < rows; i++)
                 {
-                    string line = "";
-
+                    string[] values = new string[cols];
                     for (int j = 0; j < cols; j++)
                     {
-                    
-                        int value = matrix[i, j] > 0 ? 1 : 0;
-                        line += value;
-
-                      
-                        if (j < cols - 1)
-                        {
-                            line += ";";
-                        }
+                        values[j] = matrix[i, j] > 0 ? "1" : "0";
                     }
-
-                    writer.WriteLine(line);
+                    writer.WriteLine(string.Join(";", values));
                 }
             }
 
-
-            return Path.GetFullPath(fileName);
+            return Path.GetFullPath(path);
         }
     }
 }
