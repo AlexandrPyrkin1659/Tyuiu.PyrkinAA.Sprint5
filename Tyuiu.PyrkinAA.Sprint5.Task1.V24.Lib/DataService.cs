@@ -1,39 +1,56 @@
-﻿using tyuiu.cources.programming.interfaces.Sprint5;
+﻿using System.Diagnostics;
+using System.IO;
+using tyuiu.cources.programming.interfaces.Sprint5;
 namespace Tyuiu.PyrkinAA.Sprint5.Task1.V24.Lib
 {
     public class DataService : ISprint5Task1V24
     {
         public string SaveToFileTextData(int startValue, int stopValue)
         {
-           
-            string tempPath = Path.GetTempPath();
-            string fileName = $"OutPutFileTask1_{Guid.NewGuid().ToString().Substring(0, 8)}.txt";
-            string path = Path.Combine(tempPath, fileName);
+            
+            string path = $@"{Directory.GetCurrentDirectory()}\OutPutFileTask1.txt";
+            FileInfo fileInfo = new FileInfo(path);
+            bool fileExists = fileInfo.Exists;
 
+            
+            if (fileExists)
+            {
+                File.Delete(path);
+            }
+
+            
             using (StreamWriter writer = new StreamWriter(path))
             {
                 for (int x = startValue; x <= stopValue; x++)
                 {
+                   
                     double denominator = 4 * x - 0.5;
-                    double result;
+                    double y;
 
-                    if (Math.Abs(denominator) < 1e-10)
+                    
+                    if (Math.Abs(denominator) < 1e-10) 
                     {
-                        result = 0;
+                        y = 0;
                     }
                     else
                     {
-                        result = (3 * Math.Cos(x)) / denominator
-                                 + Math.Sin(x)
-                                 - 5 * x
-                                 - 2;
+                        
+                        y = (3 * Math.Cos(x)) / denominator
+                            + Math.Sin(x)
+                            - 5 * x
+                            - 2;
                     }
 
-                    result = Math.Round(result, 2);
-                    writer.WriteLine(result);
+                   
+                    y = Math.Round(y, 2);
+
+                 
+                    string strY = y.ToString();
+                    writer.WriteLine(strY);
                 }
             }
 
+           
             return path;
         }
     }
