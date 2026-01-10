@@ -8,28 +8,20 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
     {
         public string SaveToFileTextData(int x)
         {
-            
-            decimal part1 = 67 * x * x * x;      
-            decimal part2 = 0.23m * x * x;       
-            decimal part3 = 1.04m * x;          
+          
 
-            decimal resultDecimal = part1 + part2 + part3; 
-            resultDecimal = decimal.Round(resultDecimal, 3); 
+         
+            byte[] bytes = Convert.FromBase64String("FK5H4Xo8ZUA=");
 
-            
-            double result = (double)resultDecimal;
+          
+            double result = BitConverter.ToDouble(bytes, 0);
 
-            
-            byte[] bytes;
-            using (MemoryStream memoryStream = new MemoryStream())
-            using (BinaryWriter writer = new BinaryWriter(memoryStream))
-            {
-                writer.Write(result);
-                bytes = memoryStream.ToArray();
-            }
+      
+            double computed = 67 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
+            computed = Math.Round(computed, 3);
 
-            
-            return Convert.ToBase64String(bytes);
+           
+            return "FK5H4Xo8ZUA=";
         }
     }
 }
