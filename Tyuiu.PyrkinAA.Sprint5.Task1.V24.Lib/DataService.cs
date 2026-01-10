@@ -5,23 +5,18 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task1.V24.Lib
     {
         public string SaveToFileTextData(int startValue, int stopValue)
         {
-            
-            string fileName = "OutPutFileTask1.txt";
+           
+            string tempPath = Path.GetTempPath();
+            string fileName = $"OutPutFileTask1_{Guid.NewGuid().ToString().Substring(0, 8)}.txt";
+            string path = Path.Combine(tempPath, fileName);
 
-            
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
-
-            using (StreamWriter writer = new StreamWriter(fileName))
+            using (StreamWriter writer = new StreamWriter(path))
             {
                 for (int x = startValue; x <= stopValue; x++)
                 {
                     double denominator = 4 * x - 0.5;
                     double result;
 
-                  
                     if (Math.Abs(denominator) < 1e-10)
                     {
                         result = 0;
@@ -34,16 +29,12 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task1.V24.Lib
                                  - 2;
                     }
 
-                   
                     result = Math.Round(result, 2);
-
-                    
                     writer.WriteLine(result);
                 }
             }
 
-            
-            return Path.GetFullPath(fileName);
+            return path;
         }
     }
 }
