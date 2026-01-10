@@ -19,12 +19,8 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task5.V6.Test
 
             double result = ds.LoadFromDataFile(path);
 
-            // Для примера: если в файле числа 1.5, 2.3, 3.2, 5.1, 8.4
-            // sum = 1.5 + 2.3 + 3.2 + 5.1 + 8.4 = 20.5
-            // count = 5
-            // average = 20.5 / 5 = 4.1
-            // Округление: 4.100
-            double wait = 4.100; // Замените на фактическое ожидаемое значение
+        
+            double wait = 4.100; 
             Assert.AreEqual(wait, result);
         }
     }
