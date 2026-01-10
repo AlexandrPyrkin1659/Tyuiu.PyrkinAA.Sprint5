@@ -21,17 +21,15 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task6.V17.Lib
                 {
                     if (spaceSequenceLength > 1)
                     {
-                        count += spaceSequenceLength; 
-                        
+                        count++;
                     }
                     spaceSequenceLength = 0;
                 }
             }
 
-            
             if (spaceSequenceLength > 1)
             {
-                count += spaceSequenceLength; 
+                count++;
             }
 
             return count;
