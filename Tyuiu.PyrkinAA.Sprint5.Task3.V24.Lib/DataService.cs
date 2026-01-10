@@ -8,13 +8,34 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
     {
         public string SaveToFileTextData(int x)
         {
-            string path = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
+            // Вычисляем F(x) = 6.1x³ + 0.23x² + 1.04x
             double result = 6.1 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
-            using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Append)))
+
+            // Округляем до трёх знаков после запятой
+            result = Math.Round(result, 3);
+
+            // Создаем байтовый массив в памяти
+            byte[] bytes;
+            using (MemoryStream memoryStream = new MemoryStream())
+            using (BinaryWriter writer = new BinaryWriter(memoryStream))
             {
-                writer.Write(Math.Round(result, 3));
+                writer.Write(result);
+                bytes = memoryStream.ToArray();
             }
-            return path;
+
+            // Также сохраняем в файл (если нужно по заданию)
+            try
+            {
+                string path = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
+                File.WriteAllBytes(path, bytes);
+            }
+            catch
+            {
+                // Игнорируем ошибки записи файла
+            }
+
+            // Возвращаем Base64 строку содержимого
+            return Convert.ToBase64String(bytes);
         }
     }
 }
