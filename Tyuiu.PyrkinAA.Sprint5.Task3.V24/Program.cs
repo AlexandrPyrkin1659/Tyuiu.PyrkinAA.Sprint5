@@ -1,6 +1,5 @@
 ﻿using Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib;
 using System;
-using System.IO;
 
 class Program
 {
@@ -31,22 +30,10 @@ class Program
         Console.WriteLine("* РЕЗУЛЬТАТ:                                                              *");
         Console.WriteLine("***************************************************************************");
 
-        
-        byte[] resultBytes = ds.SaveToFileTextData(x);
+        string result = ds.SaveToFileTextData(x);
 
-        
-        double result = BitConverter.ToDouble(resultBytes, 0);
-
-        
-        string base64Result = Convert.ToBase64String(resultBytes);
-
-        Console.WriteLine($"Результат вычисления: {result}");
-        Console.WriteLine($"Base64 представление: {base64Result}");
-
-        
-        string filePath = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
-        Console.WriteLine($"Файл сохранен: {filePath}");
-        Console.WriteLine($"Размер файла: {resultBytes.Length} байт");
+        Console.WriteLine($"Base64 результат: {result}");
+        Console.WriteLine($"Файл создан в временной папке: OutPutFileTask3.bin");
 
         Console.ReadKey();
     }
