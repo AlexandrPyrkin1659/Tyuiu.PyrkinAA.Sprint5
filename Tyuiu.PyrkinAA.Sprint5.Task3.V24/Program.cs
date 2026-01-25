@@ -32,11 +32,13 @@ class Program
         Console.WriteLine("***************************************************************************");
 
         
-        string base64Result = ds.SaveToFileTextData(x);
+        byte[] resultBytes = ds.SaveToFileTextData(x);
 
         
-        byte[] bytes = Convert.FromBase64String(base64Result);
-        double result = BitConverter.ToDouble(bytes, 0);
+        double result = BitConverter.ToDouble(resultBytes, 0);
+
+        
+        string base64Result = Convert.ToBase64String(resultBytes);
 
         Console.WriteLine($"Результат вычисления: {result}");
         Console.WriteLine($"Base64 представление: {base64Result}");
@@ -44,6 +46,7 @@ class Program
         
         string filePath = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
         Console.WriteLine($"Файл сохранен: {filePath}");
+        Console.WriteLine($"Размер файла: {resultBytes.Length} байт");
 
         Console.ReadKey();
     }
