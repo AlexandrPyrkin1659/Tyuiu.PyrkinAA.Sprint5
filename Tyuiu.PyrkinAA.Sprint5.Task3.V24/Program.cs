@@ -16,24 +16,30 @@ class Program
         Console.WriteLine("* Выполнил: Пыркин Александр Артемьевич | АСОиУб-25-1                     *");
         Console.WriteLine("***************************************************************************");
         Console.WriteLine("* УСЛОВИЕ:                                                                *");
-        Console.WriteLine("* Дано выражение y = x³ + 2x² + 5x + 4, вычислить его значение при x = 3, *");
-        Console.WriteLine("* результат сохранить в бинарный файл OutPutFileTask3.bin и вывести на    *");
-        Console.WriteLine("* консоль. Округлить до трёх знаков после запятой.                        *");
+        Console.WriteLine("* Дано выражение F(x) = 6.1x³ + 0.23x² + 1.04x, вычислить его значение    *");
+        Console.WriteLine("* при x = 3, результат сохранить в бинарный файл OutPutFileTask3.bin      *");
+        Console.WriteLine("* и вывести на консоль. Округлить до трёх знаков после запятой.           *");
         Console.WriteLine("***************************************************************************");
         Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
         Console.WriteLine("***************************************************************************");
 
         int x = 3;
         Console.WriteLine($"x = {x}");
+        Console.WriteLine($"Выражение: F(x) = 6.1*{x}³ + 0.23*{x}² + 1.04*{x}");
 
         Console.WriteLine("***************************************************************************");
         Console.WriteLine("* РЕЗУЛЬТАТ:                                                              *");
         Console.WriteLine("***************************************************************************");
 
-        string result = ds.SaveToFileTextData(x);
+        string path = ds.SaveToFileTextData(x);
 
-        Console.WriteLine($"Base64 результат: {result}");
-        Console.WriteLine($"Файл создан в временной папке: OutPutFileTask3.bin");
+        
+        double result = 6.1 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
+        result = Math.Round(result, 3);
+
+        Console.WriteLine($"Результат вычисления: {result}");
+        Console.WriteLine($"Файл: {path}");
+        Console.WriteLine("Создан");
 
         Console.ReadKey();
     }

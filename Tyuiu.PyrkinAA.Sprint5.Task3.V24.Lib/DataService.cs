@@ -6,25 +6,23 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
 {
     public class DataService : ISprint5Task3V24
     {
-        public byte[] SaveToFileTextData(int x)
+        public string SaveToFileTextData(int x)
         {
-            // Вычисляем выражение
-            double result = Math.Pow(x, 3) + 2 * Math.Pow(x, 2) + 5 * x + 4;
-            result = Math.Round(result, 3);
+            
+            double res = 6.1 * Math.Pow(x, 3) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
+            res = Math.Round(res, 3);
 
-            // Создаем путь к файлу
+            
             string path = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
 
-            // Записываем в файл
+            
             using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.OpenOrCreate)))
             {
-                writer.Write(result);
+               
+                writer.Write(res);
             }
 
-            // Для x=3 результат должен быть 64.0
-            // Создаем 64.0 и конвертируем в байты
-            double value64 = 64.0;
-            return BitConverter.GetBytes(value64);
+            return path;
         }
     }
 }
