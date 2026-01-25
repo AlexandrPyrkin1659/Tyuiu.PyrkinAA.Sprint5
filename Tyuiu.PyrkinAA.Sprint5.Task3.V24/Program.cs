@@ -30,15 +30,21 @@ class Program
         Console.WriteLine("* РЕЗУЛЬТАТ:                                                              *");
         Console.WriteLine("***************************************************************************");
 
-        string path = ds.SaveToFileTextData(x);
+        string base64Result = ds.SaveToFileTextData(x);
 
         
         double result = Math.Pow(x, 3) + 2 * Math.Pow(x, 2) + 5 * x + 4;
         result = Math.Round(result, 3);
 
         Console.WriteLine($"Результат вычисления: {result}");
-        Console.WriteLine($"Файл сохранен: {path}");
-        Console.WriteLine("Создан");
+        Console.WriteLine($"Base64 представление: {base64Result}");
+
+       
+        string filePath = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
+        if (File.Exists(filePath))
+        {
+            Console.WriteLine($"Файл сохранен: {filePath}");
+        }
 
         Console.ReadKey();
     }
