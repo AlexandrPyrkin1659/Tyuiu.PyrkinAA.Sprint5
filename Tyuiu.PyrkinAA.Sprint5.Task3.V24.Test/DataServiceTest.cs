@@ -20,4 +20,3 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Test
         }
     }
 }
-}
