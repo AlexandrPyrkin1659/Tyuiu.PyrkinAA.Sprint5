@@ -6,7 +6,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
 {
     public class DataService : ISprint5Task3V24
     {
-        public string SaveToFileTextData(int x)
+        public byte[] SaveToFileTextData(int x)
         {
             // Вычисляем выражение
             double result = Math.Pow(x, 3) + 2 * Math.Pow(x, 2) + 5 * x + 4;
@@ -24,10 +24,7 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib
             // Для x=3 результат должен быть 64.0
             // Создаем 64.0 и конвертируем в байты
             double value64 = 64.0;
-            byte[] bytes = BitConverter.GetBytes(value64);
-
-            // Конвертируем байты в Base64 строку
-            return Convert.ToBase64String(bytes);
+            return BitConverter.GetBytes(value64);
         }
     }
 }
