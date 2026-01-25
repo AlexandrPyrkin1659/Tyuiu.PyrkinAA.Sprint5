@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib;
+﻿using Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -14,28 +13,19 @@ namespace Tyuiu.PyrkinAA.Sprint5.Task3.V24.Test
             DataService ds = new DataService();
 
             int x = 3;
-            string path = ds.SaveToFileTextData(x);
-
-            
-            FileInfo fileInfo = new FileInfo(path);
-            bool fileExists = fileInfo.Exists;
-            Assert.IsTrue(fileExists, "Файл не создан");
+            string base64Result = ds.SaveToFileTextData(x);
 
            
-            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
-            {
-                double valueFromFile = reader.ReadDouble();
-                double expectedValue = Math.Pow(x, 3) + 2 * Math.Pow(x, 2) + 5 * x + 4;
-                expectedValue = Math.Round(expectedValue, 3);
-
-                Assert.AreEqual(expectedValue, valueFromFile, 0.001, "Значение в файле неверное");
-            }
+            string expectedBase64 = "FK5H4Xo8ZUA=";
+            Assert.AreEqual(expectedBase64, base64Result);
 
             
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
+            byte[] bytes = Convert.FromBase64String(base64Result);
+            double value = BitConverter.ToDouble(bytes, 0);
+            double expectedValue = Math.Pow(x, 3) + 2 * Math.Pow(x, 2) + 5 * x + 4;
+            expectedValue = Math.Round(expectedValue, 3);
+
+            Assert.AreEqual(expectedValue, value, 0.001);
         }
     }
 }

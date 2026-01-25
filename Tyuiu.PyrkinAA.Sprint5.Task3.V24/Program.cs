@@ -1,5 +1,6 @@
 ﻿using Tyuiu.PyrkinAA.Sprint5.Task3.V24.Lib;
 using System;
+using System.IO;
 
 class Program
 {
@@ -16,9 +17,9 @@ class Program
         Console.WriteLine("* Выполнил: Пыркин Александр Артемьевич | АСОиУб-25-1                     *");
         Console.WriteLine("***************************************************************************");
         Console.WriteLine("* УСЛОВИЕ:                                                                *");
-        Console.WriteLine("* Дано выражение, вычислить его значение при x = 3, результат сохранить в *");
-        Console.WriteLine("* бинарный файл OutPutFileTask3.bin и вывести на консоль. Округлить до    *");
-        Console.WriteLine("* трёх знаков после запятой.                                              *");
+        Console.WriteLine("* Дано выражение y = x³ + 2x² + 5x + 4, вычислить его значение при x = 3, *");
+        Console.WriteLine("* результат сохранить в бинарный файл OutPutFileTask3.bin и вывести на    *");
+        Console.WriteLine("* консоль. Округлить до трёх знаков после запятой.                        *");
         Console.WriteLine("***************************************************************************");
         Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
         Console.WriteLine("***************************************************************************");
@@ -30,21 +31,19 @@ class Program
         Console.WriteLine("* РЕЗУЛЬТАТ:                                                              *");
         Console.WriteLine("***************************************************************************");
 
+        
         string base64Result = ds.SaveToFileTextData(x);
 
         
-        double result = Math.Pow(x, 3) + 2 * Math.Pow(x, 2) + 5 * x + 4;
-        result = Math.Round(result, 3);
+        byte[] bytes = Convert.FromBase64String(base64Result);
+        double result = BitConverter.ToDouble(bytes, 0);
 
         Console.WriteLine($"Результат вычисления: {result}");
         Console.WriteLine($"Base64 представление: {base64Result}");
 
-       
+        
         string filePath = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
-        if (File.Exists(filePath))
-        {
-            Console.WriteLine($"Файл сохранен: {filePath}");
-        }
+        Console.WriteLine($"Файл сохранен: {filePath}");
 
         Console.ReadKey();
     }
